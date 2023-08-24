@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "output_analysis.h"
 
-void output_f(double * x1_p, double * x2_p, int solver_return)
+void output_f(double x1, double x2, int solver_return)
 {
     switch (solver_return)
     {
@@ -13,10 +13,10 @@ void output_f(double * x1_p, double * x2_p, int solver_return)
             printf("Any x\n");
             break;
         case ROOT_1:
-            printf("x = %.6lf\n", *x1_p);
+            printf("x = %.6lf\n", x1);
             break;
         case ROOTS_2:
-            printf("x1 = %.6lf, x2 = %.6lf\n", *x1_p, *x2_p);
+            printf("x1 = %.6lf, x2 = %.6lf\n", x1, x2);
         default:
             break;
     }

@@ -3,26 +3,30 @@
 #include <math.h>
 
 
-enum comparison_result compare_f(double a)
+bool isEqual(double d, double e)
 {
-    double dif = 0.0000001;
-    if(fabs(a-0.0)<dif)
+    const double dif = 0.00000000000009;
+    if(fabs(e-d)<=dif)
     {
-        return EQUAL;
-    }
-    else if (a>0.0)
-    {
-        return GREATER;
+        return true;
     }
     else
     {
-        return LESS;
+        return false;
     }
 }
 
 void flush_buffer(void)
 {
     while (getchar()!='\n')
+    {
+        ;
+    }
+}
+
+void flush_buffer_file(FILE * fp)
+{
+    while ( fgetc(fp) != '\n' )
     {
         ;
     }
