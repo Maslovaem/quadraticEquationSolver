@@ -12,9 +12,10 @@ int main(void)
     //input_test_quadratic_equation_solver();
 
     FILE * fp_tests;
+
     fp_tests = fopen("tests.txt","r");
-    struct TestData testsData;
-    check_input_from_fileWithTests(&testsData, fp_tests);
+    check_input_from_fileWithTests(fp_tests, count_strings(fp_tests));
+    fclose(fp_tests);
 
     //run_test();
 

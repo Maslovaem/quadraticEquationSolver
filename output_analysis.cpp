@@ -1,9 +1,14 @@
 #include "solver.h"
 #include <stdio.h>
 #include "output_analysis.h"
+#include <cassert>
+#include <math.h>
 
 void output_f(double x1, double x2, int solver_return)
 {
+    assert(isfinite(x1));
+    assert(isfinite(x2));
+
     switch (solver_return)
     {
         case NO_ROOTS:
