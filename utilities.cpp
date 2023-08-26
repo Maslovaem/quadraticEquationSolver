@@ -56,3 +56,11 @@ int count_strings(FILE * fp)
 
     return count;
 }
+
+void flush_buffer_excluding_first_char(char temp)
+{
+    while(temp != '\n')
+    {
+        temp = getchar();
+    }
+}
