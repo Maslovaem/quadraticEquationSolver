@@ -12,18 +12,20 @@ int main(void)
 {
     //input_test_quadratic_equation_solver();
 
+    struct quadratic_eq q_eq;
+
     FILE *fp_tests = fopen("tests.txt","r");
     check_input_from_fileWithTests(fp_tests, count_strings(fp_tests));
     fclose(fp_tests);
 
     //run_test();
 
-    double a = 0.0;
+    /*double a = 0.0;
     double b = 0.0;
     double c = 0.0;
 
     double x1 = 0.0;
-    double x2 = 0.0;
+    double x2 = 0.0;*/
 
     int solver_return = 0;
 
@@ -56,23 +58,28 @@ int main(void)
 
     printf("A quadratic equation looks like this: a*x^2 + b*x + c = 0. Enter a,b,c; 'q' - exit.\n");
     printf("Console input - '1', file input - '2'\n");
-    if ( (indicator1 = check_first_char()) == '2')
+    if ( (indicator1 = check_first_char() ) == '2')
     {
         printf("Enter file name\n");
         scanf("%s", file_name);
 
         fp = fopen (file_name, "r");
 
-        show_calc_results_using_file_and_struct(fp);
+        while(check_quadratic_input_via_file_(&q_eq, fp) == ACCEPT)
+        {
+            solver_return = solve_quadratic_equation(&q_eq);
+            printf("for a = %lf, b = %lf, c = %lf: \n", q_eq.a, q_eq.b, q_eq.c);
+            output_f(&q_eq, solver_return);
+        }
         fclose(fp);
     }
-    else if ( indicator1 == '1')
+    else if (indicator1 == '1')
     {
         printf("Enter a,b,c; 'q' - exit.\n");
-        while(check_quadratic_input(&a, &b, &c) == ACCEPT)
+        while(check_quadratic_input(&q_eq) == ACCEPT)
         {
-            solver_return = solve_quadratic_equation(a, b, c, &x1, &x2);
-            output_f(x1, x2, solver_return);
+            solver_return = solve_quadratic_equation(&q_eq);
+            output_f(&q_eq, solver_return);
             printf("Enter a,b,c; 'q' - exit.\n");
         }
     }

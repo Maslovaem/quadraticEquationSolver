@@ -9,6 +9,7 @@ bool isEqual(double d, double e)
     assert(isfinite(d));
     assert(isfinite(e));
 
+
     const double dif = 0.00000000000009;
     if(fabs(e-d)<=dif)
     {
