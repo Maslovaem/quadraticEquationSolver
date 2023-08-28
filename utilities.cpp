@@ -65,3 +65,20 @@ void flush_buffer_excluding_first_char(char temp)
     }
 }
 
+bool check_buffer_isspace(void)
+{
+    char temp = 'f';
+    temp = getchar();
+    while(temp=='\t' || temp==' ')
+    {
+        temp = getchar();
+    }
+    if(temp == '\n')
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}

@@ -12,9 +12,7 @@ int main(void)
 {
     //input_test_quadratic_equation_solver();
 
-    FILE * fp_tests;
-
-    fp_tests = fopen("tests.txt","r");
+    FILE *fp_tests = fopen("tests.txt","r");
     check_input_from_fileWithTests(fp_tests, count_strings(fp_tests));
     fclose(fp_tests);
 
@@ -51,8 +49,6 @@ int main(void)
             printf("Enter b,c; 'q' - exit.\n");
         }
     }*/
-
-    assert_(0==0, __FILE__, strlen(__FILE__), __LINE__);
 
     char indicator1 = 'f';
     char file_name[40] = "";

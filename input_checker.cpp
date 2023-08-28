@@ -15,7 +15,6 @@ struct quadratic_eq {
         double c;
         double x1;
         double x2;
-        //enum roots_amnt;
     } q_eq;
 
 enum input_result check_quadratic_input(double * a_p,double * b_p,double * c_p)
@@ -26,28 +25,39 @@ enum input_result check_quadratic_input(double * a_p,double * b_p,double * c_p)
 
     int check = 0;
     int temp = 0;
-    while( ( (check=scanf("%lf %lf %lf", a_p, b_p, c_p) )  != 3) || (check == 3 && ( (temp=getchar() ) !='\n') ) )
+    while(1)
     {
-        if(check==0)
+        check=scanf("%lf %lf %lf", a_p, b_p, c_p);
+        if(check == 0)
         {
-            if(getchar() == 'q' && getchar() == '\n')
+            if( (/*temp = */getchar()) == 'q' && check_buffer_isspace() == true)
             {
                 return EXIT;
             }
             else
             {
-                flush_buffer_excluding_first_char(temp);
-                printf("Enter three numbers\n");
+                flush_buffer();
+                printf("Enter three numbers or 'q' for exit\n");
             }
+        }
+        else if (check != 3 && check!=0)
+        {
+            flush_buffer();
+            printf("Enter three numbers or 'q' for exit\n");
         }
         else
         {
-            flush_buffer_excluding_first_char(temp);
-            printf("Enter three numbers\n");
+            if(check_buffer_isspace() == true)
+            {
+                return ACCEPT;
+            }
+            else
+            {
+                flush_buffer();
+                printf("Enter three numbers or 'q' for exit\n");
+            }
         }
     }
-    //flush_buffer();
-    return ACCEPT;
 }
 
 
@@ -131,15 +141,4 @@ void show_calc_results_using_file_and_struct(FILE * fp)
     }
 }
 
-void assert_(int exp, const char *filename, int len, int line)
-{
-    char temp[40] = "";
-    for(int i = 0; i<len; i++)
-    {
-        temp[i] = filename[i];
-    }
-    if (exp==1)
-    {
-        printf("Error: file - %s line - %d\n", temp, line);
-    }
-}
+
