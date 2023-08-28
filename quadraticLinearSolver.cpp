@@ -6,6 +6,7 @@
 #include "output_analysis.h"
 #include "solver.h"
 #include "utilities.h"
+#include <string.h>
 
 int main(void)
 {
@@ -50,6 +51,8 @@ int main(void)
             printf("Enter b,c; 'q' - exit.\n");
         }
     }*/
+
+    assert_(0==0, __FILE__, strlen(__FILE__), __LINE__);
 
     char indicator1 = 'f';
     char file_name[40] = "";

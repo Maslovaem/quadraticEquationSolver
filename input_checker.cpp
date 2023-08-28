@@ -5,6 +5,7 @@
 #include "output_analysis.h"
 #include <ctype.h>
 #include <cassert>
+#include <string.h>
 
 int solver_return = 0;
 
@@ -27,14 +28,22 @@ enum input_result check_quadratic_input(double * a_p,double * b_p,double * c_p)
     int temp = 0;
     while( ( (check=scanf("%lf %lf %lf", a_p, b_p, c_p) )  != 3) || (check == 3 && ( (temp=getchar() ) !='\n') ) )
     {
-        if(getchar()=='q' && check==0 && getchar()=='\n')
+        if(check==0)
         {
-            return EXIT;
+            if(getchar() == 'q' && getchar() == '\n')
+            {
+                return EXIT;
+            }
+            else
+            {
+                flush_buffer_excluding_first_char(temp);
+                printf("Enter three numbers\n");
+            }
         }
         else
         {
+            flush_buffer_excluding_first_char(temp);
             printf("Enter three numbers\n");
-            flush_buffer();
         }
     }
     //flush_buffer();
@@ -119,5 +128,18 @@ void show_calc_results_using_file_and_struct(FILE * fp)
         solver_return = solve_quadratic_equation(q_eq.a, q_eq.b, q_eq.c, &(q_eq.x1), &(q_eq.x2));
         printf("for a = %lf, b = %lf, c = %lf: \n", q_eq.a, q_eq.b, q_eq.c);
         output_f(q_eq.x1, q_eq.x2, solver_return);
+    }
+}
+
+void assert_(int exp, const char *filename, int len, int line)
+{
+    char temp[40] = "";
+    for(int i = 0; i<len; i++)
+    {
+        temp[i] = filename[i];
+    }
+    if (exp==1)
+    {
+        printf("Error: file - %s line - %d\n", temp, line);
     }
 }

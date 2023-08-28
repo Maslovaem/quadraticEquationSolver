@@ -4,6 +4,7 @@
 #include "first_char.h"
 #include "first_char.h"
 
+
 char get_first(void)
 {
     char first_char = 'f';
@@ -29,3 +30,4 @@ char check_first_char(void)
     }
     return temp;
 }
+

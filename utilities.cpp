@@ -64,3 +64,4 @@ void flush_buffer_excluding_first_char(char temp)
         temp = getchar();
     }
 }
+
