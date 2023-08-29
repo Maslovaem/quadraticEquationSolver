@@ -34,6 +34,3 @@ To choose file input you should enter "2" and then enter the name of the file wi
 
 ## Copyright note
 Permission to use, copy, modify scripts and output results.
-
-## Documentation
-You can find the detailed documentation here: 
