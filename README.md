@@ -7,14 +7,14 @@ This project was created for solving quadratic equations. It also contains some 
 Read the "Installation" block to save the developer from cursing. 
 
 ## Reporting Bugs
-Bug reports for quadraticEquationSolverbash should be sent to: lizamushroom757@gmail.com
+Bug reports for quadraticEquationSolver should be sent to: lizamushroom757@gmail.com
 
 ## Installation
 To install the project and run it on a local machine you need to follow these installation steps:
 1. Download all files in the repository.
 2. Make sure that you downloaded every single file (including makefile and start.bat)
 3. Make sure that both makefile and file with your input are in the root directory of the project.
-4. If you alredy have "make" utility on your machine just use the `make` command to run code and skip the last step.
+4. If you already have "make" utility on your machine just use the `make` command to run code and skip the last step.
 5. If you don't have "make" utility on your machine use `.\Solver.exe` command to run code/
 
 ## Test
