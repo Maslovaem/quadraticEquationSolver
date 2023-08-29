@@ -3,10 +3,9 @@
 
 /**
 Prints calculation results
-@param[in] variable for the first root
-@param[in] variable for the second root
+@param[in] struct pointer
 @param[in] amount of roots
 */
-void output_f(double x1, double x2, int solver_return);
+void output_f(struct quadratic_eq *q_eq, int solver_return);
 
 #endif
