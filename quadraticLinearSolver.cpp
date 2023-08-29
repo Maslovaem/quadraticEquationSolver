@@ -8,15 +8,37 @@
 #include "utilities.h"
 #include <string.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
     //input_test_quadratic_equation_solver();
 
-    struct quadratic_eq q_eq;
 
-    FILE *fp_tests = fopen("tests.txt","r");
-    check_input_from_fileWithTests(fp_tests, count_strings(fp_tests));
-    fclose(fp_tests);
+    struct quadratic_eq q_eq = {.a = 0.0, .b = 0.0, .c = 0.0, .x1 = 0.0, .x2 = 0.0};
+
+    if(argc == 2 or argc == 3)
+    {
+        if (MyStrcmp("--test", argv[1]))
+        {
+            if(argc == 2)
+            {
+                printf("Enter file_name.exp\n");
+            }
+            else
+            {
+                FILE *fp_tests = fopen(argv[2],"r");
+                get_input_from_fileWithTests(fp_tests, count_strings(fp_tests));
+                fclose(fp_tests);
+            }
+        }
+        else
+        {
+            printf("Enter --test to run tests via file\n");
+        }
+    }
+
+    /*FILE *fp_tests = fopen("tests.txt","r");
+    get_input_from_fileWithTests(fp_tests, count_strings(fp_tests));
+    fclose(fp_tests);*/
 
     //run_test();
 
@@ -52,7 +74,7 @@ int main(void)
         }
     }*/
 
-    char indicator1 = 'f';
+    int indicator1 = 'f';
     char file_name[40] = "";
     FILE * fp;
 
@@ -72,6 +94,7 @@ int main(void)
             output_f(&q_eq, solver_return);
         }
         fclose(fp);
+        //getchar();
     }
     else if (indicator1 == '1')
     {
@@ -83,6 +106,7 @@ int main(void)
             printf("Enter a,b,c; 'q' - exit.\n");
         }
     }
+    //getchar();
 
     //printf("Enter '1' to solve a quadratic equation, '2' - a linear equation, 'q' - exit.\n");
 
@@ -112,10 +136,6 @@ int main(void)
             output_f(&x1, &x2, solver_return);
         }
     }*/
-
-    /*getchar(); //for *.exe
-    getchar();
-    getchar();*/
 
     return 0;
 }

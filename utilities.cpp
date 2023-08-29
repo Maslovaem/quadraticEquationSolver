@@ -58,9 +58,9 @@ int count_strings(FILE * fp)
     return count;
 }
 
-void flush_buffer_excluding_first_char(char temp)
+void flush_buffer_excluding_first_char(int temp)
 {
-    while(temp != '\n')
+    while( temp != '\n')
     {
         temp = getchar();
     }
@@ -68,7 +68,7 @@ void flush_buffer_excluding_first_char(char temp)
 
 bool check_buffer_isspace(void)
 {
-    char temp = 'f';
+    int temp = 'f';
     temp = getchar();
     while(temp=='\t' || temp==' ')
     {
@@ -82,4 +82,17 @@ bool check_buffer_isspace(void)
     {
         return false;
     }
+}
+
+bool MyStrcmp(const char *str1, char *str2)
+{
+    size_t i;
+    for (i = 0; str2[i]; i++)
+    {
+        if(str1[i] != str2[i])
+        {
+            return false;
+        }
+    }
+    return true;
 }

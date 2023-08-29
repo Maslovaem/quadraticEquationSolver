@@ -44,4 +44,12 @@ void flush_buffer_excluding_first_char(int temp);
 */
 bool check_buffer_isspace(void);
 
+/*
+Compares two strings
+@param[in] the fist const string
+@param[in] the second const string
+@param[out] the fist const string
+*/
+bool MyStrcmp(const char *str1, char *str2);
+
 #endif

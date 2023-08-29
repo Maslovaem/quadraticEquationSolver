@@ -5,9 +5,9 @@
 #include "first_char.h"
 
 
-char get_first(void)
+int get_first(void)
 {
-    char first_char = 'f';
+    int first_char = 'f';
     first_char = getchar();
     while(isspace(first_char))
     {
@@ -21,9 +21,9 @@ char get_first(void)
     return first_char;
 }
 
-char check_first_char(void)
+int check_first_char(void)
 {
-    char temp = 'f';
+    int temp = 'f';
     while( (temp = get_first()) != '1' && temp != '2' && temp != 'q')
     {
         printf("Enter '1', '2' or 'q'.\n");

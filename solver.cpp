@@ -27,6 +27,10 @@ enum equation_solver_result solve_quadratic_equation(struct quadratic_eq *q_eq)
     ASSERT(isfinite( (*q_eq).b ));
     ASSERT(isfinite( (*q_eq).c ));
 
+
+
+    //ASSERT(isEqual((*q_eq).a, NULL) == true);
+
     double D = 0.0;
     if(isEqual( (*q_eq).a, 0.0) == true)
     {
@@ -52,8 +56,8 @@ enum equation_solver_result solve_quadratic_equation(struct quadratic_eq *q_eq)
         else
         {
             ASSERT(D>0.0);
-            (*q_eq).x1 = ( (-( (*q_eq).b) )+sqrt(D) )/(2 * ( (*q_eq).a) );
-            (*q_eq).x2 = ( (-( (*q_eq).b) )-sqrt(D) )/(2 * ( (*q_eq).a) );
+            (*q_eq).x1 = ( (-( (*q_eq).b) ) + sqrt(D) )/(2 * ( (*q_eq).a) );
+            (*q_eq).x2 = ( (-( (*q_eq).b) ) - sqrt(D) )/(2 * ( (*q_eq).a) );
             if(isEqual((*q_eq).x1, 0.0) == true)
             {
                 (*q_eq).x1 = 0.0;
@@ -162,7 +166,8 @@ enum equation_solver_result solve_linear_equation(double b, double c, double * x
     }
 }*/
 
-void check_input_from_fileWithTests(FILE * fp, int nStrings)
+
+void get_input_from_fileWithTests(FILE * fp, int nStrings)
 {
     fseek(fp, 0L, SEEK_SET);
     struct fileTestData fileData[100] = {};
@@ -209,6 +214,7 @@ void compare_with_ref_via_file(struct fileTestData *data)
     q_eq.c = (*data).c;
 
     int roots = solve_quadratic_equation(&q_eq);
+
     if (isEqual( (*data).x1_ref, q_eq.x1 ) == false)
     {
         printf("Test %d failed: (x1=%lf) != (x1_ref=%lf)\n", (*data).testNumber, q_eq.x1, (*data).x1_ref);
@@ -221,6 +227,5 @@ void compare_with_ref_via_file(struct fileTestData *data)
     {
         printf("Test %d failed: (roots=%d) != (roots_ref=%d)\n", (*data).testNumber, roots, (*data).roots_ref);
     }
-
     return;
 }

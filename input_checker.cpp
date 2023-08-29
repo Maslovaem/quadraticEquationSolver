@@ -13,7 +13,6 @@ enum input_result check_quadratic_input(struct quadratic_eq *q_eq)
 {
 
     int check = 0;
-    int temp = 0;
     while(1)
     {
         check=scanf("%lf %lf %lf", &((*q_eq).a), &((*q_eq).b), &((*q_eq).c));

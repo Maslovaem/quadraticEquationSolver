@@ -35,11 +35,11 @@ enum equation_solver_result solve_linear_equation(double b, double c, double * x
 //void run_test(void);
 
 /**
-Checks whether file data is correct
+Gets whether file data is correct
 @param[in] file pointer
 @param[in] amount of strings in the file
 */
-void check_input_from_fileWithTests(FILE * fp, int nStrings);
+void get_input_from_fileWithTests(FILE * fp, int nStrings);
 
 /**
 Compares file data with calculation results
