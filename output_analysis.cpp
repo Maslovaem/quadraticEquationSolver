@@ -5,7 +5,7 @@
 #include "output_analysis.h"
 #include "input_checker.h"
 
-void output_f(struct quadratic_eq *q_eq, int solver_return)
+void output(struct quadratic_eq *q_eq, int solver_return)
 {
     ASSERT(q_eq != NULL);
     ASSERT(isfinite( (*q_eq).x1 ));

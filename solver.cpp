@@ -5,14 +5,6 @@
 #include "utilities.h"
 #include "input_checker.h"
 
-struct TestData
-{
-    double a, b, c;
-    double x1_ref, x2_ref;
-    int roots_ref;
-    const char * name;
-};
-
 struct fileTestData
 {
     double a, b, c;
@@ -92,42 +84,72 @@ enum equation_solver_result solve_linear_equation(double b, double c, double * x
         }
 }
 
-void get_input_from_fileWithTests(FILE * fp, int nStrings)
+void get_input_from_fileWithTests(FILE *fp, int nStrings, int *nFailed_tests)
 {
     ASSERT(fp != NULL);
-    ASSERT(nStrings != NULL);
+    ASSERT(nStrings != -1);
+    ASSERT(nStrings != 0);
 
     fseek(fp, 0L, SEEK_SET);
     struct fileTestData fileData = {.a = 0.0, .b = 0.0, .c = 0.0, .x1_ref = 0.0, .x2_ref = 0.0, .roots_ref = 0, .testNumber = 0};
 
     for (int i = 0; i < nStrings; i++)
     {
-        fscanf(fp, "%lf %lf %lf %lf %lf %d %d", &(fileData.a), &(fileData.b), &(fileData.c), &(fileData.x1_ref), &(fileData.x2_ref), &(fileData.roots_ref), &(fileData.testNumber));
+        fscanf(fp, "%lf %lf %lf %lf %lf %d %d", &(fileData.a),
+                                                &(fileData.b),
+                                                &(fileData.c),
+                                                &(fileData.x1_ref),
+                                                &(fileData.x2_ref),
+                                                &(fileData.roots_ref),
+                                                &(fileData.testNumber));
         flush_buffer_file(fp);
-        compare_with_ref_via_file(&fileData);
+        compare_with_ref_via_file(&fileData, nFailed_tests);
     }
+    printf("Amount of failed tests: %d\n", *nFailed_tests);
 }
 
-void compare_with_ref_via_file(struct fileTestData *data)
+void compare_with_ref_via_file(struct fileTestData *data, int *nFailed_tests)
 {
-    struct quadratic_eq q_eq;
+    ASSERT(data!=NULL);
+    ASSERT(nFailed_tests!=NULL);
+
+    struct quadratic_eq q_eq = {.a = 0.0, .b = 0.0, .c = 0.0, .x1 = 0.0, .x2 = 0.0};
 
     q_eq.a = (*data).a;
     q_eq.b = (*data).b;
     q_eq.c = (*data).c;
 
     int roots = solve_quadratic_equation(&q_eq);
+    char roots_amount[POSSIBLE_OUTCOMES][LENGTH] = { {"no roots"}, {"infinite amount of roots"}, {"one root"}, {"two roots"} };
+    char roots_str[LENGTH] = "";
+    char roots_str_ref[LENGTH] = "";
+    for (int i = 0; i < POSSIBLE_OUTCOMES; i++)
+    {
+        if (roots == i-1)
+        {
+            MyStrcpy(roots_str, roots_amount[i]);
+        }
+        if ( (*data).roots_ref == i-1 )
+        {
+            MyStrcpy(roots_str_ref, roots_amount[i]);
+        }
+    }
 
-    if (isEqual( (*data).x1_ref, q_eq.x1 ) == false)
+    if (!isEqual( (*data).x1_ref, q_eq.x1) || !isEqual( (*data).x2_ref, q_eq.x2 ) || !isEqual( (*data).roots_ref, roots))
     {
-        printf("Test %d failed: (x1=%lf) != (x1_ref=%lf)\n", (*data).testNumber, q_eq.x1, (*data).x1_ref);
-    }
-    if ( isEqual( (*data).x2_ref, q_eq.x2 ) == false)
-    {
-        printf("Test %d failed: (x2=%lf) != (x2_ref=%lf)\n", (*data).testNumber, q_eq.x2, (*data).x2_ref);
-    }
-    if ((isEqual( (*data).roots_ref, roots)) == false)
-    {
-        printf("Test %d failed: (roots=%d) != (roots_ref=%d)\n", (*data).testNumber, roots, (*data).roots_ref);
+        printf("Test %d failed:\n", (*data).testNumber);
+        (*nFailed_tests)++;
+        if (isEqual( (*data).x1_ref, q_eq.x1 ) == false)
+        {
+            printf("\t(x1=%lf) != (x1_ref=%lf)\n", q_eq.x1, (*data).x1_ref);
+        }
+        if (isEqual( (*data).x2_ref, q_eq.x2 ) == false)
+        {
+            printf("\t(x2=%lf) != (x2_ref=%lf)\n", q_eq.x2, (*data).x2_ref);
+        }
+        if (isEqual( (*data).roots_ref, roots) == false)
+        {
+            printf("\t(roots=%s) != (roots_ref=%s)\n", roots_str, roots_str_ref);
+        }
     }
 }

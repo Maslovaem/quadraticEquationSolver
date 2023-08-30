@@ -2,6 +2,9 @@
 #ifndef SOLVER_H
 #define SOLVER_H
 
+const int LENGTH = 40;
+const int POSSIBLE_OUTCOMES = 4;
+
 /// Possible amount of roots
 enum equation_solver_result {NO_ROOTS = -1, ///<no roots
                              INF_ROOTS = 0, ///<infinite amount of roots
@@ -32,12 +35,12 @@ Gets whether file data is correct
 @param[in] file pointer
 @param[in] amount of strings in the file
 */
-void get_input_from_fileWithTests(FILE * fp, int nStrings);
+void get_input_from_fileWithTests(FILE * fp, int nStrings, int *nFailed_tests);
 
 /**
 Compares file data with calculation results
 @param[in] struct pointer
 */
-void compare_with_ref_via_file(struct fileTestData *data);
+void compare_with_ref_via_file(struct fileTestData *data, int *nFailed_tests);
 
 #endif

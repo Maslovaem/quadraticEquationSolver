@@ -4,13 +4,13 @@
 #include "utilities.h"
 #include "input_checker.h"
 
-bool isEqual(double d, double e)
+bool isEqual(double lhs, double rhs)
 {
-    assert(isfinite(d));
-    assert(isfinite(e));
+    ASSERT(isfinite(lhs));
+    ASSERT(isfinite(rhs));
 
-    const double dif = 0.00000000000009;
-    if(fabs(e-d)<=dif)
+    const double DIF = 0.00000000000009;
+    if(fabs(lhs-rhs) <= DIF)
     {
         return true;
     }
@@ -25,7 +25,7 @@ void flush_buffer(void)
     flush_buffer_file(stdin);
 }
 
-void flush_buffer_file(FILE * fp)
+void flush_buffer_file(FILE *fp)
 {
     ASSERT(fp != NULL);
 
@@ -35,10 +35,8 @@ void flush_buffer_file(FILE * fp)
     }
 }
 
-int count_strings(FILE * fp)
+int count_strings(FILE *fp)
 {
-    ASSERT(fp != NULL);
-
     int count = 0;
     int ch = 'f';
     if (fp == NULL)
@@ -52,7 +50,7 @@ int count_strings(FILE * fp)
             count++;
         }
     }
-    if (count > max_tests_amt)
+    if (count > MAX_TESTS_AMOUNT)
     {
         printf("Too much tests\n");
         count = -1;
@@ -110,4 +108,14 @@ void isAboutZero(double *a)
     {
         *a = 0.0;
     }
+}
+
+void MyStrcpy(char *dest, const char *src)
+{
+    size_t i;
+    for (i = 0; src[i]; i++)
+    {
+        dest[i] = src[i];
+    }
+    dest[i] = '\0';
 }

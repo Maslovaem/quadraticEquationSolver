@@ -1,4 +1,5 @@
 #include <cstdio>
+//#define NDEBUG_
 
 #ifndef INPUT_CHECKER_H
 #define INPUT_CHECKER_H
@@ -31,15 +32,19 @@ Checks whether the coefficients of the quadratic equation (ax^2 + bx + c = 0) ar
 @param[out] EXIT - correct input
 @param[out] ACCEPT - incorrect input
 */
-enum input_result check_quadratic_input_via_file_(struct quadratic_eq * q_eq, FILE * fp);
+enum input_result check_quadratic_input_via_file_(struct quadratic_eq *q_eq, FILE *fp, int *string_number);
 
-#define ASSERT(exp)                                                                         \
-do {                                                                                        \
-        if ( (exp) == 0) {                                                                  \
-        fprintf(stderr, "Expression = " #exp " failed, [%s:%d]\n", __FILE__, __LINE__);     \
-        abort();                                                                            \
-    }                                                                                       \
-}                                                                                           \
+#ifdef NDEBUG_
+#define ASSERT(exp) ((void)0)
+#else
+#define ASSERT(exp)                                                                                         \
+do {                                                                                                        \
+        if ( (exp) == 0) {                                                                                  \
+        fprintf(stderr, "Expression = " #exp " failed, [%s:%d - %s]\n", __FILE__, __LINE__, __func__);      \
+        abort();                                                                                            \
+    }                                                                                                       \
+}                                                                                                           \
 while(0)
+#endif
 
 #endif

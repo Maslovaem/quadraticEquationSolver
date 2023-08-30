@@ -49,28 +49,34 @@ enum input_result check_quadratic_input(struct quadratic_eq *q_eq)
     }
 }
 
-enum input_result check_quadratic_input_via_file_(struct quadratic_eq * q_eq, FILE * fp)
+enum input_result check_quadratic_input_via_file_(struct quadratic_eq *q_eq, FILE *fp, int *string_number)
 {
-    ASSERT(q_eq != NULL);
-
     if (fp == NULL)
     {
         printf("Not found\n");
         return EXIT;
     }
+
     int check = 0;
-    while(((check=fscanf(fp, "%lf %lf %lf", &(*q_eq).a, &(*q_eq).b, &(*q_eq).c)) != 3 && check!=EOF))
+    while(1)
     {
-        if ( fgetc(fp) == 'q' && fgetc(fp) == '\n' )
+        check = fscanf(fp, "%lf %lf %lf", &((*q_eq).a), &((*q_eq).b), &((*q_eq).c));
+        if (check == EOF)
         {
-            return EXIT;
+            return EXIT;;
         }
-        printf("Enter three numbers\n");
+
+        (*string_number)++;
+        if (check != 3)
+        {
+            printf("Invalid file data: string %d\n", *string_number);
+        }
+        else
+        {
+            return ACCEPT;
+        }
         flush_buffer_file(fp);
     }
-    flush_buffer_file(fp);
-
-    return ACCEPT;
 }
 
 
